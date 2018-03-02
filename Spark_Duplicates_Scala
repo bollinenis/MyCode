@@ -1,0 +1,6 @@
+val transactions = spark.read
+  .option("header", "true")
+  .option("inferSchema", "true")
+  .json("s3n://bucket-name/transaction.json")
+
+transactions.groupBy("id", "organization").count.sort($"count".desc).show
